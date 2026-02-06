@@ -16,6 +16,12 @@ from rl_zoo3.exp_manager import ExperimentManager
 from rl_zoo3.load_from_hub import download_from_hub
 from rl_zoo3.utils import StoreDict, get_model_path
 
+import sys
+import os
+
+# Den Pfad zum custom wrapper hinzufügen
+sys.path.append(os.path.abspath("seminar"))
+
 
 def enjoy() -> None:  # noqa: C901
     parser = argparse.ArgumentParser()

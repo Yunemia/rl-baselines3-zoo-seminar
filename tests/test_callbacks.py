@@ -5,7 +5,10 @@ import pytest
 import stable_baselines3 as sb3
 
 from rl_zoo3.utils import get_callback_list
-
+from pathlib import Path
+import sys
+train_script = Path(__file__).parent.parent / "train.py"
+train_script = train_script.resolve()  # absoluter Pfad
 
 def _assert_eq(left, right):
     assert left == right, f"{left} != {right}"
@@ -13,10 +16,10 @@ def _assert_eq(left, right):
 
 def test_raw_stat_callback(tmp_path):
     cmd = (
-        f"python train.py -n 200 --algo ppo --env CartPole-v1 --log-folder {tmp_path} "
+        f'"{sys.executable}" {train_script} -n 200 --algo ppo --env CartPole-v1 --log-folder {tmp_path} '
         f"--tensorboard-log {tmp_path} -params callback:\"'rl_zoo3.callbacks.RawStatisticsCallback'\""
     )
-    return_code = subprocess.call(shlex.split(cmd))
+    return_code = subprocess.call(cmd, shell=True)
     _assert_eq(return_code, 0)
 
 

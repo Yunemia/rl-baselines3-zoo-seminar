@@ -1,5 +1,8 @@
 # Anwendungsspezifische Reinforcement-Learning Ansätze
 
+My report for the seminar can be found [here](seminar/report.md). The slides used during my presentation can be found [here](seminar/Präsentationsfolien.pptx).
+The logs and videos are stored on [Google Drive](https://drive.google.com/drive/folders/1Ab-FPzs7WKGEzMNJKwhnP-I5-e4yYAMf?usp=sharing).
+
 This is the seminar-specific readme. For details on the zoo, please see the [original readme](zoo_README.md).
 
 ## Setup Stable-Baselines3-Zoo (Docker)

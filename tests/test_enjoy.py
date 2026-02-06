@@ -6,7 +6,12 @@ from importlib.metadata import version
 import pytest
 
 from rl_zoo3.utils import get_hf_trained_models, get_trained_models
-
+import sys
+from pathlib import Path
+train_script = Path(__file__).parent.parent / "train.py"
+train_script = train_script.resolve()  # absoluter Pfad
+enjoy_script = Path(__file__).parent.parent / "enjoy.py"
+enjoy_script = enjoy_script.resolve()
 # Test models from sb3 organization can be trusted
 os.environ["TRUST_REMOTE_CODE"] = "True"
 
@@ -55,14 +60,14 @@ def test_trained_agents(trained_model):
         # FIXME: switch to Gymnsium
         return
 
-    cmd = f"python enjoy.py --algo {algo} --env {env_id} -n {N_STEPS} -f {FOLDER} --no-render"
-    return_code = subprocess.call(shlex.split(cmd))
+    cmd = f'"{sys.executable}" {enjoy_script} --algo {algo} --env {env_id} -n {N_STEPS} -f {FOLDER} --no-render'
+    return_code = subprocess.call(cmd, shell=True)
     _assert_eq(return_code, 0)
 
 
 def test_benchmark(tmp_path):
-    cmd = f"python -m rl_zoo3.benchmark -n {N_STEPS} --benchmark-dir {tmp_path} --test-mode --no-hub"
-    return_code = subprocess.call(shlex.split(cmd))
+    cmd = f'"{sys.executable}"  -m rl_zoo3.benchmark -n {N_STEPS} --benchmark-dir {tmp_path} --test-mode --no-hub'
+    return_code = subprocess.call(cmd, shell=True)
     _assert_eq(return_code, 0)
 
 
@@ -70,26 +75,26 @@ def test_load(tmp_path):
     algo, env_id = "a2c", "CartPole-v1"
     # Train and save checkpoints and best model
     cmd = (
-        f"python train.py --algo {algo} --env {env_id} -n 1000 -f {tmp_path} "
+        f'"{sys.executable}" {train_script} --algo {algo} --env {env_id} -n 1000 -f {tmp_path} '
         # Enable progress bar
         f"-params n_envs:1 --eval-freq 500 --save-freq 500 -P"
     )
-    return_code = subprocess.call(shlex.split(cmd))
+    return_code = subprocess.call(cmd, shell=True)
     _assert_eq(return_code, 0)
 
     # Load best model
-    base_cmd = f"python enjoy.py --algo {algo} --env {env_id} -n {N_STEPS} -f {tmp_path} --no-render "
+    base_cmd = f'"{sys.executable}" {enjoy_script} --algo {algo} --env {env_id} -n {N_STEPS} -f {tmp_path} --no-render '
     # Enable progress bar
-    return_code = subprocess.call(shlex.split(base_cmd + "--load-best -P"))
+    return_code = subprocess.call(base_cmd + "--load-best -P", shell=True)
 
     _assert_eq(return_code, 0)
 
     # Load checkpoint
-    return_code = subprocess.call(shlex.split(base_cmd + "--load-checkpoint 500"))
+    return_code = subprocess.call(base_cmd + "--load-checkpoint 500", shell=True)
     _assert_eq(return_code, 0)
 
     # Load last checkpoint
-    return_code = subprocess.call(shlex.split(base_cmd + "--load-last-checkpoint"))
+    return_code = subprocess.call(base_cmd + "--load-last-checkpoint", shell=True)
     _assert_eq(return_code, 0)
 
 
@@ -98,8 +103,8 @@ def test_record_video(tmp_path):
     if not os.environ.get("DISPLAY"):
         pytest.skip("No X-Server")
 
-    cmd = f"python -m rl_zoo3.record_video -n 100 --algo sac --env Pendulum-v1 -o {tmp_path}"
-    return_code = subprocess.call(shlex.split(cmd))
+    cmd = f'"{sys.executable}" -m rl_zoo3.record_video -n 100 --algo sac --env Pendulum-v1 -o {tmp_path}'
+    return_code = subprocess.call(cmd)
 
     _assert_eq(return_code, 0)
     video_path = str(tmp_path / "final-model-sac-Pendulum-v1-step-0-to-step-100.mp4")
@@ -115,16 +120,16 @@ def test_record_training(tmp_path):
     if not os.environ.get("DISPLAY"):
         pytest.skip("No X-Server")
 
-    cmd = f"python train.py -n 10000 --algo {algo} --env {env_id} --log-folder {tmp_path} --save-freq 4000 "
-    return_code = subprocess.call(shlex.split(cmd))
+    cmd = f'"{sys.executable}" {train_script} -n 10000 --algo {algo} --env {env_id} --log-folder {tmp_path} --save-freq 4000 '
+    return_code = subprocess.call(cmd, shell=True)
     _assert_eq(return_code, 0)
 
     cmd = (
-        f"python -m rl_zoo3.record_training -n 100 --algo {algo} --env {env_id} "
+        f'"{sys.executable}" -m rl_zoo3.record_training -n 100 --algo {algo} --env {env_id} '
         f"--f {tmp_path} "
         f"--gif -o {videos_tmp_path}"
     )
-    return_code = subprocess.call(shlex.split(cmd))
+    return_code = subprocess.call(cmd, shell=True)
     _assert_eq(return_code, 0)
 
     mp4_path = str(videos_tmp_path / "training.mp4")
