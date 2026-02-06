@@ -305,7 +305,7 @@ Each line corresponds to one of the experiments.
 We can see that the experiment with the Step Penalty achieved the worst performance in both scores. Also, the agents using Min-Max Scaling and the raw reward did perform awfully in the score metric, 
 but in the episode length metric, the Min-Max-Scaling reached the same episode lengths as the top experiments because they stayed long in round 1 to lure Coily off.
 Using a single frame performed okay. Then we have a cluster of experiments that all reach a similar end score in training. The worst of these being stacking 2 frames, then the Completion Focus (this being the better rewards for coloring and round completion).
-A really similar performance was achieved by the Baseline, the stacking of 6 frames and the cropped image experiments. Here the Framestack 6 agents learn the fastest, but they also end up with the same metric scores as the baseline.
+A really similar performance was achieved by the Baseline, the removal of the fire action, the stacking of 6 frames and the cropped image experiments. Here the Framestack 6 agents learn the fastest, but they also end up with the same metric scores as the baseline.
 The use of the cropped image seems to have achieved the best performance at the end of training.
 
 ### Performance of the final agents
@@ -317,10 +317,10 @@ This Dataframe is loaded in [aggregate_eval.py](aggregate_eval.py) to get the me
 which consists of 300 evaluation episodes. The scores are then saved in `evaluation_overall.csv`. 
 We then get the following meaningful table:
 
-| Metric                                 | Baseline         | Framestack 1    | Framestack 2     | Framestack 6     | Cropped Image    | Raw Reward      | Reward Scaling  | Step Penalty    | Completion Focus | Fire Removed     |
-|----------------------------------------|------------------|-----------------|------------------|------------------|------------------|-----------------|-----------------|-----------------|------------------|------------------|
-| $\varnothing$ Score $\pm$ Std          | 12957 $\pm$ 3373 | 9059 $\pm$ 3063 | 12723 $\pm$ 2784 | 13006 $\pm$ 1583 | 13150 $\pm$ 2712 | 3792 $\pm$ 1085 | 4873 $\pm$ 2745 | 1859 $\pm$ 1722 | 11934 $\pm$ 2201 | 12270 $\pm$ 2717 |
-| $\varnothing$ Episode Length $\pm$ Std | 6125 $\pm$ 1151  | 4639 $\pm$ 701  | 6125 $\pm$ 840   | 6087 $\pm$ 784   | 6129 $\pm$ 917   | 3232 $\pm$ 651  | 8387 $\pm$ 6331 | 1775 $\pm$ 462  | 5645 $\pm$ 918   | 5888 $\pm$ 1114  |
+| Metric                                 | Baseline         | Removed Fire     | Framestack 1    | Framestack 2     | Framestack 6     | Cropped Image    | Raw Reward      | Reward Scaling  | Step Penalty    | Completion Focus |
+|----------------------------------------|------------------|------------------|-----------------|------------------|------------------|------------------|-----------------|-----------------|-----------------|------------------|
+| $\varnothing$ Score $\pm$ Std          | 12957 $\pm$ 3373 | 12270 $\pm$ 2717 | 9059 $\pm$ 3063 | 12723 $\pm$ 2784 | 13006 $\pm$ 1583 | 13150 $\pm$ 2712 | 3792 $\pm$ 1085 | 4873 $\pm$ 2745 | 1859 $\pm$ 1722 | 11934 $\pm$ 2201 |
+| $\varnothing$ Episode Length $\pm$ Std | 6125 $\pm$ 1151  | 5888 $\pm$ 1114  | 4639 $\pm$ 701  | 6125 $\pm$ 840   | 6087 $\pm$ 784   | 6129 $\pm$ 917   | 3232 $\pm$ 651  | 8387 $\pm$ 6331 | 1775 $\pm$ 462  | 5645 $\pm$ 918   |
 
 Shown as a bar chart we get the following graphic produced by [Plot_Eval.py](Plot_Eval.py):
 

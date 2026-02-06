@@ -17,14 +17,14 @@ name_map = {
     '1e7ScratchNoClip': "Raw Reward",
     '1e7Standard': "Reward Scaling",
     '1e7StepPenalty': "Step Penalty",
-    '1e7FireRemove': "Fire Removed"
+    '1e7FireRemove': "Removed Fire"
 }
 
 df['experiment_label'] = df['experiment'].map(name_map)
 
 order = [
-    "Fire Removed",
     "Baseline",
+    "Removed Fire",
     "Framestack 1",
     "Framestack 2",
     "Framestack 6",

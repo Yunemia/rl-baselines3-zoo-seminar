@@ -22,11 +22,11 @@ import glob
 
 
 # Cropped Image
-plot_name = "Crop"
-experiments = [
-    ("logs/1e7ScratchBaseline/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Baseline", "red"),
-    ("logs/1e7Cropped/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Cropped Image", "green")
-]
+# plot_name = "Crop"
+# experiments = [
+#     ("logs/1e7ScratchBaseline/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Baseline", "red"),
+#     ("logs/1e7Cropped/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Cropped Image", "green")
+# ]
 
 
 # Step Penalty
@@ -65,19 +65,20 @@ experiments = [
 # ]
 
 # All in one
-# plot_name = "AllinOne"
-# experiments = [
-#     ("logs/1e7ScratchBaseline/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Baseline", "red"),
-#     ("logs/1e7ScratchFramestack1/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Framestack 1", "yellow"),
-#     ("logs/1e7ScratchFramestack2/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Framestack 2", "cyan"),
-#     ("logs/1e7ScratchFramestack6/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Framestack 6", "green"),
-#     ("logs/1e7Cropped/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Cropped Image", "#3498DB"),
-#     ("logs/1e7ScratchNoClip/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Raw Reward", "#9B59B6"),
-#     ("logs/1e7Standard/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Reward Scaling", "#8B4513"),
-#     ("logs/1e7StepPenalty/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Step Penalty", "orange"),
-#     ("logs/1e7CaCFokus/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Completion Focus", "#95A5A6"),
-#
-# ]
+plot_name = "AllinOne"
+experiments = [
+    ("logs/1e7ScratchBaseline/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Baseline", "red"),
+    ("logs/1e7FireRemove/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Removed Fire", "#66C2A5"),
+    ("logs/1e7ScratchFramestack1/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Framestack 1", "yellow"),
+    ("logs/1e7ScratchFramestack2/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Framestack 2", "cyan"),
+    ("logs/1e7ScratchFramestack6/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Framestack 6", "green"),
+    ("logs/1e7Cropped/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Cropped Image", "#3498DB"),
+    ("logs/1e7ScratchNoClip/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Raw Reward", "#9B59B6"),
+    ("logs/1e7Standard/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Reward Scaling", "#8B4513"),
+    ("logs/1e7StepPenalty/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Step Penalty", "orange"),
+    ("logs/1e7CaCFokus/dqn/QbertNoFrameskip-v4_*/evaluations.npz", "Completion Focus", "#95A5A6"),
+
+]
 
 dark_mode = True
 #metric = "ep_length"
